@@ -13,9 +13,9 @@ const Nav = () => {
   };
 
   return (
-    <header className={`flex justify-between items-center p-4 bg-gray-100`}>
+    <div className={`flex justify-center items-center mx-auto p-4 bg-gray-100`}>
       <div className="text-xl font-bold">로고</div>
-      <div className="flex items-center space-x-4 ml-auto">
+      <div className="flex justify-between items-center space-x-4 ml-auto">
         <div className={`cursor-pointer`} onClick={handleNavToggle}>
           계모임
         </div>
@@ -34,7 +34,7 @@ const Nav = () => {
       >
         로그인
       </button>
-    </header>
+    </div>
   );
 };
 
