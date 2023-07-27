@@ -1,55 +1,35 @@
-import React from 'react';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+
+import Main from './pages/Main';
+// import Community from './pages/Community';
+// import Swap from './pages/Swap';
+
+function Layout() {
+  const location = useLocation();
+  const [page, setPage] = useState('main');
+
+  useEffect(() => {
+    const path = location.pathname.split('/')[1];
+    setPage(path ? path : 'main');
+  }, [location]);
+
+  return (
+    <div>
+      <Routes>
+        <Route path="/" element={<Main />} />
+        {/* <Route path="/community" element={<Community />} />
+        <Route path="/swap" element={<Swap />} /> */}
+      </Routes>
+    </div>
+  );
+}
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <Counter />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Layout />
+    </BrowserRouter>
   );
 }
 
