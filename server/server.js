@@ -1,35 +1,31 @@
 const express = require('express')
 const app = express()
-const port = 4000
+const db = require("./models");
+const port = 5000;
 
+
+const cors = require("cors");
+require("dotenv").config();
+
+const authRouter = require("./routes/auth")
+
+
+app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({ extended:true }));
+app.use("/auth", authRouter);
 
-let id = 2;
-
-const signupList = [
-  {
-    id: 1,
-    text: "할일 1",
-    done: false,
-  }
-]
-
-app.get('/api/signup', (req, res ) => {
-  res.json(signupList);
-})
-
-app.post('/api/signup', (req, res) => {
-  const { text, done } = req.body;
-  console.log(text);
-  signupList.push({
-    id: id++,
-    text,
-    done,
-  });
-  return res.send("success");
-});
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+  console.log(` 
+  ################################################
+  ***  Server listening on port: ${port} ***
+  ################################################`)
+  
+});
+
+db.sequelize
+  .sync({})
+  .then(() => {
+    console.log("dababase connected");
+  })
+  .catch(console.error);
