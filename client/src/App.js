@@ -18,8 +18,8 @@ function Layout() {
     <div>
       <Routes>
         <Route path="/" element={<Main />} />
-        {/* <Route path="/community" element={<Community />} />
-        <Route path="/swap" element={<Swap />} /> */}
+        {/* <Route path="/community" element={<Community />} /> */}
+        {/* <Route path="/swap" element={<Swap />} /> */}
       </Routes>
     </div>
   );

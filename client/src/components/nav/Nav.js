@@ -13,27 +13,29 @@ const Nav = () => {
   };
 
   return (
-    <div className={`flex justify-center items-center mx-auto p-4 bg-gray-100`}>
-      <div className="text-xl font-bold">로고</div>
-      <div className="flex justify-between items-center space-x-4 ml-auto">
-        <div className={`cursor-pointer`} onClick={handleNavToggle}>
-          계모임
-        </div>
-        {isNavOpen && (
-          <div className="flex flex-col space-y-2">
-            <div className="cursor-pointer">계모임 생성하기</div>
-            <div className="cursor-pointer">계모임 참여하기</div>
+    <div className="flex justify-center my-4">
+      <div className="flex items-center justify-between p-4 w-3/5">
+        <div className="text-xl font-bold">로고</div>
+        <div className="flex justify-between items-center space-x-4 ml-auto">
+          <div className={`cursor-pointer`} onClick={handleNavToggle}>
+            계모임
           </div>
-        )}
-        <div className="cursor-pointer">커뮤니티</div>
-        <div className="cursor-pointer">스왑</div>
+          {isNavOpen && (
+            <div className="flex flex-col space-y-2">
+              <div className="cursor-pointer">계모임 생성하기</div>
+              <div className="cursor-pointer">계모임 참여하기</div>
+            </div>
+          )}
+          <div className="cursor-pointer">커뮤니티</div>
+          <div className="cursor-pointer">스왑</div>
+        </div>
+        <button
+          className={`ml-10 bg-blue-500 text-white px-4 py-2 rounded-md cursor-pointer`}
+          onClick={() => {}}
+        >
+          로그인
+        </button>
       </div>
-      <button
-        className={`ml-10 bg-blue-500 text-white px-4 py-2 rounded-md cursor-pointer`}
-        onClick={() => {}}
-      >
-        로그인
-      </button>
     </div>
   );
 };
