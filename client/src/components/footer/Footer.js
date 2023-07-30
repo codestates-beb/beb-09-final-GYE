@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaGithub, FaDiscord, FaNotion, FaYoutube } from 'react-icons/fa';
+import { FaGithub, FaDiscord, FaYoutube } from 'react-icons/fa';
 
 const Footer = () => {
   return (
