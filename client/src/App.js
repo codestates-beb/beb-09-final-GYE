@@ -4,6 +4,8 @@ import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import Main from './pages/Main';
 // import Community from './pages/Community';
 import Signup from './pages/Signup';
+import JoinGroup from './pages/JoinGroup';
+import GroupDetail from './pages/GroupDetail';
 // import Swap from './pages/Swap';
 
 function Layout() {
@@ -22,6 +24,8 @@ function Layout() {
         {/* <Route path="/community" element={<Community />} /> */}
         <Route path="/signup" element={<Signup />} />
         {/* <Route path="/swap" element={<Swap />} /> */}
+        <Route path="/group/join" element={<JoinGroup />} />
+        <Route path="/group/detail" element={<GroupDetail />} />
       </Routes>
     </div>
   );

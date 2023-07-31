@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link ,useNavigate } from 'react-router-dom';
-import Nav from '../components/nav/Nav';
-import Footer from '../components/footer/Footer';
+import Nav from '../components/Nav';
+import Footer from '../components/Footer';
 import { signupAPI } from '../api/signupAPI';
 
 const Signup = () => {
@@ -165,13 +165,10 @@ const Signup = () => {
             />
             <button
               type="submit"
-              className="w-full bg-blue-500 text-white py-2 px-4 mt-8 rounded-md hover:bg-blue-600"
+              className="w-full bg-blue-500 text-white py-2 px-4 my-10 rounded-md hover:bg-blue-600"
             >
               회원가입
             </button>
-            <div className="justify-center text-center mt-2">
-              <Link to="/login">이미 회원이신가요?</Link>
-            </div>
           </form>
         </div>
       </div>
