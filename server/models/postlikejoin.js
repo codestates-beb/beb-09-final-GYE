@@ -14,8 +14,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   PostLikeJoin.init({
-    email: DataTypes.INTEGER,
-    post_id: DataTypes.INTEGER
+    email: DataTypes.STRING,
+    post_id: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'PostLikeJoin',
