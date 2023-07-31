@@ -10,15 +10,15 @@ const port = parseInt(process.env.PORT, 10);
 const cors = require("cors");
 require("dotenv").config();
 
-const authRouter = require("./routes/auth");
+const authRouter = require("./routes/users");
 const groupRouter = require("./routes/creategye");
-
+const groupList = require("./routes/gyelist")
 
 app.use(cors());
 app.use(express.json());
-app.use("/auth", authRouter);
+app.use("/user", authRouter);
 app.use("/group", groupRouter);
-
+app.use("/grouplist", groupList)
 
 app.listen(port, () => {
   console.log(` 

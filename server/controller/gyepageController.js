@@ -1,18 +1,19 @@
-const { GroupPage, Users, GroupUserJoin} = require("../models");
+const { GroupPages, Users, GroupUserJoin} = require("../models");
 
 module.exports = {
     //계모임 조회
-    getgyegroup: async (req, res) => {
+    getgroupgye: async (req, res) => {
         try {
-            const result = await GroupPage.findAll({});
-
+            const result = await GroupPages.findAll({});
+           
             const gyelist = result.map((el) => {
-                return el.datas;
-            })
+                return el.dataValues;
+            });
+            
             res.status(200).json({
                 msg: "ok",
                 display: gyelist,
-            })
+            });
         } catch (err) {
             console.log(err);
             res.status(500).send(err);
