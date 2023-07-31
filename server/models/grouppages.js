@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class GroupPage extends Model {
+  class GroupPages extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  GroupPage.init({
+  GroupPages.init({
     group_id: DataTypes.STRING,
     email: DataTypes.STRING,
     group_name: DataTypes.STRING,
@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
     group_img: DataTypes.BLOB,
   }, {
     sequelize,
-    modelName: 'GroupPage',
+    modelName: 'GroupPages',
   });
-  return GroupPage;
+  return GroupPages;
 };
