@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   ManageGroup.init({
     group_id: DataTypes.INTEGER,
-    user_id: DataTypes.INTEGER,
+    user_id: DataTypes.STRING,
     month: DataTypes.DATE,
     yes_no_fee_payment: DataTypes.BOOLEAN,
     created_at: DataTypes.DATE

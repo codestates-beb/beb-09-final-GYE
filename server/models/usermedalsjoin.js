@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   UserMedalsJoin.init({
     medals_id: DataTypes.INTEGER,
-    user_id: DataTypes.INTEGER,
+    user_id: DataTypes.STRING,
     created_at: DataTypes.DATE
   }, {
     sequelize,

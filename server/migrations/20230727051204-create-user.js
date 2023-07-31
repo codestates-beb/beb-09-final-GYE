@@ -10,7 +10,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       email: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       nickname: {
         type: Sequelize.STRING
@@ -26,9 +26,6 @@ module.exports = {
       },
       USDG_amount: {
         type: Sequelize.INTEGER
-      },
-      created_at: {
-        type: Sequelize.DATE
       },
       createdAt: {
         allowNull: false,

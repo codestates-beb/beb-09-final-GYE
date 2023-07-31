@@ -13,7 +13,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       email: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       group_name: {
         type: Sequelize.STRING

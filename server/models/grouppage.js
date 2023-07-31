@@ -14,16 +14,14 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   GroupPage.init({
-    group_id: DataTypes.INTEGER,
-    email: DataTypes.INTEGER,
+    group_id: DataTypes.STRING,
+    email: DataTypes.STRING,
     group_name: DataTypes.STRING,
     group_goal: DataTypes.STRING,
     fee: DataTypes.INTEGER,
     fee_day: DataTypes.DATE,
     max_ppl: DataTypes.INTEGER,
     group_img: DataTypes.BLOB,
-    created_at: DataTypes.DATE,
-    updated_at: DataTypes.DATE
   }, {
     sequelize,
     modelName: 'GroupPage',
