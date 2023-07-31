@@ -20,7 +20,7 @@ const Signup = () => {
     //@notion API 사용 함수를 따로 선언하여 에러 핸들링 및 화면 전환
    signupAPI(userEmail, password, nickname, (error, responseData) => {
      if (error) {
-       if(error.response.status === 409){
+       if(error?.response?.status == 409){
          //@notion 아이디 중복일 때 응답코드 409
          alert('이미 있는 아이디입니다. 다른 아이디로 시도해주세요.');
        }
@@ -33,7 +33,7 @@ const Signup = () => {
        console.error('회원가입 성공: ', responseData)
        //@notion 회원가입에 성공하면 alert확인후 login 페이지로 이동
        alert('회원가입이 성공적으로 완료되었습니다.');
-       navigate('/login');
+       navigate('/');
      }
    })
  }  

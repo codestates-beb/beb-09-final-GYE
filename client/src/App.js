@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 
 import Main from './pages/Main';
-// import Community from './pages/Community';
 import Signup from './pages/Signup';
 import JoinGroup from './pages/JoinGroup';
 import GroupDetail from './pages/GroupDetail';
-// import Swap from './pages/Swap';
+import CreateGroup from './pages/CreateGroup';
+// import Community from './pages/Community';
+import Swap from './pages/Swap';
 
 function Layout() {
   const location = useLocation();
@@ -21,11 +22,12 @@ function Layout() {
     <div>
       <Routes>
         <Route path="/" element={<Main />} />
-        {/* <Route path="/community" element={<Community />} /> */}
         <Route path="/signup" element={<Signup />} />
-        {/* <Route path="/swap" element={<Swap />} /> */}
         <Route path="/group/join" element={<JoinGroup />} />
         <Route path="/group/detail" element={<GroupDetail />} />
+        <Route path="/group/create" element={<CreateGroup />} />
+        {/* <Route path="/community" element={<Community />} /> */}
+        <Route path="/swap" element={<Swap />} />
       </Routes>
     </div>
   );
