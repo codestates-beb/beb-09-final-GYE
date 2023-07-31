@@ -7,16 +7,16 @@ require("dotenv").config();
 
 //회원가입
 router.post('/signup', async (req, res) => {
-   
+
     const { email, password, nickname } = req.body;
     console.log(req.body);
     const date = new Date();
-    
-    const findeEmail =  await Users.findOne({
+
+    const findeEmail = await Users.findOne({
         where: {
-          email: email,
+            email: email,
         },
-      });
+    });
     if (findeEmail) {
         res.status(400).send("다른 이메일을 사용해 주세요");
     } else {
@@ -29,7 +29,7 @@ router.post('/signup', async (req, res) => {
             usdg_amount: 0,
         })
             .then((user) => {
-                res.status(201).json({ success: true, message: "회원가입이 완료되었습니다.", user });
+                res.status(200).json({ success: true, message: "회원가입이 완료되었습니다.", user });
             })
             .catch((err) => {
                 res.status(500).json({ success: false, message: "회원가입에 실패하였습니다.", err });
