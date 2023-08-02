@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import JoinGroupItem from '../components/JoinGroupItem';
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';
-import HeadContent from '../components/HeadContent';
 
 const JoinGroup = () => {
   // 가상의 계모임 목록 데이터
@@ -34,6 +33,34 @@ const JoinGroup = () => {
       imageUrl: 'https://via.placeholder.com/300',
       description: '계모임 4 설명 Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
       linkTo: '/group/4',
+    },
+    {
+      id: 5,
+      title: '계모임 5',
+      imageUrl: 'https://via.placeholder.com/300',
+      description: '계모임 5 설명 Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      linkTo: '/group/5',
+    },
+    {
+      id: 6,
+      title: '계모임 6',
+      imageUrl: 'https://via.placeholder.com/300',
+      description: '계모임 6 설명 Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      linkTo: '/group/6',
+    },
+    {
+      id: 7,
+      title: '계모임 7',
+      imageUrl: 'https://via.placeholder.com/300',
+      description: '계모임 8 설명 Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      linkTo: '/group/7',
+    },
+    {
+      id: 8,
+      title: '계모임 8',
+      imageUrl: 'https://via.placeholder.com/300',
+      description: '계모임 8 설명 Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      linkTo: '/group/8',
     },
     {
       id: 1,
@@ -76,6 +103,7 @@ const JoinGroup = () => {
   return (
     <div>
       <Nav />
+      <img src="https://ipfs.io/ipfs/QmZZkPpggsqz3bDfntmQPyGZYD57TD3AfH8yMbRiuPPHyW?filename=join-group-Banner.png" alt="join-group" className="w-3/5 mx-auto" />
       <div className="container w-3/5 mx-auto my-8">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {groups.slice(0, visibleGroups).map((group) => (
@@ -90,7 +118,7 @@ const JoinGroup = () => {
         </div>
         {visibleGroups < groups.length && (
           <button
-            className="justify-center px-4 py-2 rounded-md hover:bg-blue-600"
+            className="justify-center w-full px-4 py-2 my-8 rounded-md bg-blue-400 hover:bg-blue-600 text-white"
             onClick={handleLoadMore}
           >
             더보기

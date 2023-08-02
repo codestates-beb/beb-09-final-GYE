@@ -9,7 +9,7 @@ const JoinGroupItem = ({ title, imageUrl, description, linkTo }) => {
   };
 
   return (
-    <div className="p-4 border rounded-md cursor-pointer group hover:bg-gray-100 w-full sm:w-1/2 md:w-1/4">
+    <div className="p-4 border rounded-md cursor-pointer group hover:bg-gray-100">
       <img src={imageUrl} alt={title} className="w-full h-40 object-cover rounded-md mb-4" />
       <h3 className="text-xl font-bold mb-2">{title}</h3>
       <p className="text-gray-600 mb-4">{description}</p>
