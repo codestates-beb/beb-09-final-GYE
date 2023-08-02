@@ -14,13 +14,11 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Post.init({
-    post_id: DataTypes.STRING,
-    email: DataTypes.STRING,
+    user_id: DataTypes.STRING,
     title: DataTypes.STRING,
     content: DataTypes.STRING,
-    post_img: DataTypes.BLOB,
-    created_at: DataTypes.DATE,
-    updated_at: DataTypes.DATE
+    // post_img: DataTypes.BLOB,
+    updatedAt: DataTypes.DATE
   }, {
     sequelize,
     modelName: 'Post',

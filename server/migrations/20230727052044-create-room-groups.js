@@ -2,14 +2,14 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('GroupPages', {
+    await queryInterface.createTable('Room_Groups', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      group_id: {
+      g_user_id: {
         type: Sequelize.INTEGER
       },
       email: {
@@ -33,12 +33,6 @@ module.exports = {
       group_img: {
         type: Sequelize.BLOB
       },
-      created_at: {
-        type: Sequelize.DATE
-      },
-      updated_at: {
-        type: Sequelize.DATE
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
@@ -50,6 +44,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('GroupPages');
+    await queryInterface.dropTable('Room_Groups');
   }
 };

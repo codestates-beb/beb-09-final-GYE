@@ -29,7 +29,10 @@ router.post('/signup', async (req, res) => {
             usdg_amount: 0,
         })
             .then((user) => {
-                res.status(200).json({ success: true, message: "회원가입이 완료되었습니다.", user });
+                res.status(200).json({
+                    success: true,
+                    message: "회원가입이 완료되었습니다.", user
+                });
             })
             .catch((err) => {
                 res.status(500).json({ success: false, message: "회원가입에 실패하였습니다.", err });
@@ -39,20 +42,28 @@ router.post('/signup', async (req, res) => {
 
 //로그인
 router.post("/login", async (req, res) => {
+    const { email, password } = req.body;
     try {
-        const { email, password } = req.body;
-        console.log(req.body);
-        const user = await Users.findOne({ where: { email, password } });
-
-        if (!user) {
-            res.status(400).json({ success: flase, isLoginMessage: "로그인에 실패하였습니다." });
+        const user = await Users.findOne({ where: { email:email, password:password } });
+        console.log("=================유저 닉네임", user.password);
+        if (user) {
+            res.status(200).json({
+                isLoginMessage: "로그인에 성공하였습니다.",
+                data: {
+                    id: user.id,
+                    email: user.email,
+                    nickname: user.nickname,
+                    gye_amount: user.gye_amount,
+                    usdg_amount: user.usdg_amount,
+                },
+            });
         } else {
-            res.status(200).json({ success: true, isLoginMessage: "로그인에 성공하였습니다." });
+           res.status(400).json({ isLoginMessage: "로그인에 실패하였습니다." });
         }
 
     } catch (err) {
         console.error(err);
-        res.status(500).json({ err });
+        res.status(400).json({ isLoginMessage: "로그인에 실패하였습니다." });
         next(err);
     }
 })
