@@ -12,7 +12,7 @@ module.exports = {
       group_id: {
         type: Sequelize.INTEGER
       },
-      email: {
+      user_id: {
         type: Sequelize.INTEGER
       },
       created_at: {

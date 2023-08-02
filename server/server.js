@@ -10,14 +10,14 @@ const cors = require("cors");
 require("dotenv").config();
 
 const usersRouter = require("./routes/users");
-const groupRouter = require("./routes/creategye");
-const groupList = require("./routes/gyelist")
+const creategroupRouter = require("./routes/creategroup");
+const postRouter = require("./routes/posts");
 
 app.use(cors());
 app.use(express.json());
 app.use("/user", usersRouter);
-app.use("/group", groupRouter);
-app.use("/grouplist", groupList)
+app.use("/group", creategroupRouter);
+app.use("/posts", postRouter);
 
 app.listen(port, () => {
   console.log(` 

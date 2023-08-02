@@ -2,18 +2,15 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Posts', {
+    await queryInterface.createTashowble('Post', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      post_id: {
+      user_id: {
         type: Sequelize.INTEGER
-      },
-      email: {
-        type: Sequelize.STRING
       },
       title: {
         type: Sequelize.STRING
@@ -21,15 +18,9 @@ module.exports = {
       content: {
         type: Sequelize.STRING
       },
-      post_img: {
-        type: Sequelize.BLOB
-      },
-      created_at: {
-        type: Sequelize.DATE
-      },
-      updated_at: {
-        type: Sequelize.DATE
-      },
+      // post_img: {
+      //   type: Sequelize.BLOB
+      // },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
@@ -41,6 +32,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Posts');
+    await queryInterface.dropTable('Post');
   }
 };
