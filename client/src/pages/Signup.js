@@ -18,33 +18,33 @@ const Signup = () => {
   // 가상의 함수로 구글 또는 네이버로 가입하는 로직을 구현한다고 가정합니다.
   async function signup() {
     //@notion API 사용 함수를 따로 선언하여 에러 핸들링 및 화면 전환
-  //  signupAPI(userEmail, password, nickname, (error, responseData) => {
-  //    if (error) {
-  //      if(error?.response?.status == 500){
-  //        //@notion 아이디 중복일 때 응답코드 409
-  //        alert('이미 있는 아이디입니다. 다른 아이디로 시도해주세요.');
-  //      }
-  //      else{
-  //        alert('회원가입에 실패했습니다. 다시 시도해주세요.');
-  //      }
-       
-  //    }
-  //    else{
-  //      console.error('회원가입 성공: ', responseData)
-  //      //@notion 회원가입에 성공하면 alert확인후 login 페이지로 이동
-  //      alert('회원가입이 성공적으로 완료되었습니다.');
-  //      navigate('/');
-  //    }
-  //  })
-  const result = await signupAPI(nickname, userEmail, password);
-  console.log(result.success);
-    if (result.success === true) {
-      alert("회원가입 완료");
-      navigate("/");
-    } else {
-      alert(result);
-    }
- }  
+    //  signupAPI(userEmail, password, nickname, (error, responseData) => {
+    //    if (error) {
+    //      if(error?.response?.status == 500){
+    //        //@notion 아이디 중복일 때 응답코드 409
+    //        alert('이미 있는 아이디입니다. 다른 아이디로 시도해주세요.');
+    //      }
+    //      else{
+    //        alert('회원가입에 실패했습니다. 다시 시도해주세요.');
+    //      }
+        
+    //    }
+    //    else{
+    //      console.error('회원가입 성공: ', responseData)
+    //      //@notion 회원가입에 성공하면 alert확인후 login 페이지로 이동
+    //      alert('회원가입이 성공적으로 완료되었습니다.');
+    //      navigate('/');
+    //    }
+    //  })
+    const result = await signupAPI(userEmail, password, nickname,);
+    console.log(result.success);
+      if (result.success === true) {
+        alert("회원가입 완료");
+        navigate("/");
+      } else {
+        alert(result);
+      }
+  }  
   
   const handleGoogleSignUp = () => {
     alert('구글로 가입합니다!');

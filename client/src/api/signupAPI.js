@@ -17,7 +17,7 @@ export async function signupAPI(email, password, nickname) {
     const result = await axios({
       url: "http://localhost:5000/user/signup",
       method: "post",
-      data: { nickname, email, password },
+      data: {  email, password, nickname },
     });
     return result.data;
   } catch (err) {
