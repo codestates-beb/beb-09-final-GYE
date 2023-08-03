@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { BiSolidDownArrow } from 'react-icons/bi';
+import { Link, useNavigate } from 'react-router-dom';
+import { loginAPI } from '../api/loginAPI';
 
 const Nav = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -9,6 +10,19 @@ const Nav = () => {
   const [password, setPassword] = useState('');
   const [arrowRotation, setArrowRotation] = useState(0);
   const modalRef = useRef();
+  const navigate = useNavigate();
+
+  async function login() {
+
+  const result = await loginAPI(userEmail, password);
+    console.log(result.success);
+      if (result.success === true) {
+        alert("로그인 완료");
+        navigate("/");
+      } else {
+        alert(result);
+      }
+  }  
 
   /**
    * `isNavOpen` 상태 값을 토글하는 함수
@@ -28,7 +42,8 @@ const Nav = () => {
     e.preventDefault();
     // 로그인 로직을 구현하고, 로그인 성공 시 모달창을 닫는 등의 처리를 수행합니다.
     // 여기에서는 예시로 간단하게 alert을 사용하여 로그인 성공을 알립니다.
-    alert(`로그인 성공! 이메일: ${userEmail}, 비밀번호: ${password}`);
+    console.log(`로그인 성공! 이메일: ${userEmail}, 비밀번호: ${password}`);
+    login();
     setIsModalOpen(false);
   };
 
