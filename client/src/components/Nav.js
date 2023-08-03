@@ -1,11 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { BiSolidDownArrow } from 'react-icons/bi';
 
 const Nav = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [userEmail, setUserEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [arrowRotation, setArrowRotation] = useState(0);
   const modalRef = useRef();
 
   /**
@@ -15,6 +17,7 @@ const Nav = () => {
    */
   const handleNavToggle = () => {
     setIsNavOpen(!isNavOpen);
+    setArrowRotation(arrowRotation + 180);
   };
 
   const handleModalToggle = () => {
@@ -49,24 +52,64 @@ const Nav = () => {
   }, []);
 
   return (
-    <header className="flex justify-center my-4">
-      <div className="flex items-center justify-between p-4 w-3/5">
-        <div className="text-xl font-bold">로고</div>
-        <div className="flex justify-between items-center space-x-4 ml-auto">
-          <div className={`cursor-pointer`} onClick={handleNavToggle}>
-            계모임
+    <header className="flex justify-center border-b-2 h-24">
+      <div className="flex items-center justify-between p-2 w-3/5">
+        <a href="/"><img src="https://ipfs.io/ipfs/QmbGSre3PCKn7LkQVhkqvjmFARG9Cv4cYs2j8pwsK21L1e?filename=GYE-signature.png" alt="Logo" className="w-1/6" /></a>
+        <div className="flex justify-between items-center whitespace-nowrap gap-10">
+          <div className={`cursor-pointer`}>
+            GYE
+            <BiSolidDownArrow className="inline-block" style={{ transform: `rotate(${arrowRotation}deg)`, transition: 'transform 0.4s' }} onClick={handleNavToggle} />
           </div>
           {isNavOpen && (
-            <div className="flex flex-col space-y-2">
-              <div className="cursor-pointer">계모임 생성하기</div>
-              <div className="cursor-pointer">계모임 참여하기</div>
+            <div className="
+            absolute 
+            top-24
+            right-auto 
+            overflow-hidden 
+            bg-white 
+            text-black 
+            rounded 
+            shadow-md"
+            >
+              <ul className="text-center">
+                <Link to='/group/join'>
+                  <li className="
+                    flex 
+                    justify-center 
+                    items-center 
+                    gap-2
+                    border-b 
+                    p-4 
+                    hover:bg-gray-300 
+                    transition 
+                    duration-300 
+                    cursor-pointer">
+                    참여하기
+                  </li>
+                </Link>
+                <Link to='/group/create'>
+                  <li className="
+                    flex 
+                    justify-center 
+                    items-center 
+                    gap-2
+                    border-b 
+                    p-4 
+                    hover:bg-gray-300 
+                    transition 
+                    duration-300 
+                    cursor-pointer">
+                    생성하기
+                  </li>
+                </Link>
+              </ul>
             </div>
           )}
-          <div className="cursor-pointer">커뮤니티</div>
-          <div className="cursor-pointer">스왑</div>
+          <Link to="/community" className="cursor-pointer">Community</Link>
+          <Link to="/swap" className="cursor-pointer">Swap</Link>
         </div>
         <button
-          className={`ml-10 bg-blue-500 text-white px-4 py-2 rounded-md cursor-pointer`}
+          className={`ml-10 bg-blue-500 text-white px-4 py-2 rounded-md whitespace-nowrap cursor-pointer`}
           onClick={handleModalToggle}
         >
           로그인
@@ -104,15 +147,15 @@ const Nav = () => {
             <button
                 className="w-full border-2 border-gray-300 py-2 px-4 mt-8 mb-4 rounded-md"
                 onClick={handleGoogleLogin}
-              >
-                Google로 로그인
-              </button>
-              <button
-                className="w-full border-2 border-gray-300 py-2 px-4 rounded-md"
-                onClick={handleNaverLogin}
-              >
-                NAVER로 로그인
-              </button>
+            >
+              Google로 로그인
+            </button>
+            <button
+              className="w-full border-2 border-gray-300 py-2 px-4 rounded-md"
+              onClick={handleNaverLogin}
+            >
+              NAVER로 로그인
+            </button>
             </div>
           </div>
         </div>
