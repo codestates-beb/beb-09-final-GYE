@@ -13,15 +13,14 @@ const Nav = () => {
   const navigate = useNavigate();
 
   async function login() {
-
     const result = await loginAPI(userEmail, password);
-      console.log(result.success);
-      if (result.isLoginMessage === "로그인에 성공하였습니다.") {
+    
+      if (result.msg === "로그인에 성공했습니다.") {
         console.log(result.data);
-        alert("로그인 완료");
+        alert("로그인이 완료되었습니다.");
         navigate("/");
       } else {
-        alert(result);
+        alert(result.msg);
       }
   }  
 
