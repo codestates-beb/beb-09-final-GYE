@@ -17,6 +17,7 @@ const Nav = () => {
     const result = await loginAPI(userEmail, password);
       console.log(result.success);
       if (result.isLoginMessage === "로그인에 성공하였습니다.") {
+        console.log(result.data);
         alert("로그인 완료");
         navigate("/");
       } else {

@@ -41,7 +41,7 @@ router.post('/signup', async (req, res) => {
 });
 
 //로그인
-router.post("/login", async (req, res) => {
+router.post("/login", async (req, res, next) => {
     const { email, password } = req.body;
     try {
         const user = await Users.findOne({ where: { email:email, password:password } });
