@@ -14,9 +14,9 @@ const Nav = () => {
 
   async function login() {
 
-  const result = await loginAPI(userEmail, password);
-    console.log(result.success);
-      if (result.success === true) {
+    const result = await loginAPI(userEmail, password);
+      console.log(result.success);
+      if (result.isLoginMessage === "로그인에 성공하였습니다.") {
         alert("로그인 완료");
         navigate("/");
       } else {
@@ -149,8 +149,8 @@ const Nav = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
               <button
+                type="submit"
                 className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
-                onClick={handleLogin}
               >
                 로그인
               </button>
