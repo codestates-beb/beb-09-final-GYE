@@ -18,9 +18,10 @@ const GroupDetail = () => {
   return (
     <div>
       <Nav />
-      <div className="container w-3/5 mx-auto mt-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <img src={groupData.groupImage} alt={groupData.groupName} className="w-full h-auto md:h-80 object-cover rounded-md" />
+      <div className="flex justify-center items-center w-3/5 mt-12 mx-auto">
+        <img src={groupData.groupImage} alt={groupData.groupName} className="w-1/3 h-auto md:h-80 object-cover rounded-md" />
+        <div className='flex'>
+          
           <div className='w-full'>
             <div className="mb-4">
               <strong>모임 이름</strong>
