@@ -2,6 +2,9 @@ import React, { useState, useRef, useEffect } from 'react';
 import { BiSolidDownArrow } from 'react-icons/bi';
 import { Link, useNavigate } from 'react-router-dom';
 import { loginAPI } from '../api/loginAPI';
+import { useDispatch, useSelector } from 'react-redux';
+import { setLogin, setNickname } from '../redux/userSlice';
+import { getUserAPI } from '../api/userfindAPI';
 
 const Nav = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -11,13 +14,24 @@ const Nav = () => {
   const [arrowRotation, setArrowRotation] = useState(0);
   const modalRef = useRef();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   async function login() {
     const result = await loginAPI(userEmail, password);
-    
-      if (result.msg === "로그인에 성공했습니다.") {
-        console.log(result.data);
-        alert("로그인이 완료되었습니다.");
+      console.log(result.success);
+      if (result.isLoginMessage === "로그인에 성공하였습니다.") {
+        // console.log(result.data);
+        alert("로그인 완료");
+        const { email, nickname, gye_amount, usdg_amount } = result.data;
+        dispatch(
+          setLogin({
+            email,
+            nickname,
+            gye_amount,
+            usdg_amount,
+          })
+        );
+        console.log('setLogin 액션 디스패치 성공');
         navigate("/");
       } else {
         alert(result.msg);
@@ -43,6 +57,7 @@ const Nav = () => {
     // 로그인 로직을 구현하고, 로그인 성공 시 모달창을 닫는 등의 처리를 수행합니다.
     // 여기에서는 예시로 간단하게 alert을 사용하여 로그인 성공을 알립니다.
     console.log(`로그인 성공! 이메일: ${userEmail}, 비밀번호: ${password}`);
+    getUser();
     login();
     setIsModalOpen(false);
   };
@@ -65,6 +80,19 @@ const Nav = () => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+
+  function getUser() {
+    //const useremail = 'Leeco@gmail.com';
+    getUserAPI(userEmail, (error, responseData) => {
+      if (error) {
+        console.log('회원 찾기 실패');
+      } else {
+        //console.log('회원 정보', responseData.data.profile_img);
+        setNickname(responseData.data.nickname);
+        dispatch(setNickname(responseData.data.nickname));
+      }
+    });
+  }
 
   return (
     <header className="flex justify-center border-b-2 h-24">
