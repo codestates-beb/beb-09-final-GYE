@@ -36,7 +36,7 @@ const Signup = () => {
     //      navigate('/');
     //    }
     //  })
-    const result = await signupAPI(nickname, userEmail, password);
+    const result = await signupAPI(userEmail, password, nickname,);
     console.log(result.success);
       if (result.success === true) {
         alert("회원가입 완료");

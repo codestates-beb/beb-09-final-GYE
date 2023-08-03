@@ -22,8 +22,8 @@ router.post('/signup', async (req, res) => {
   } else {
     Users.create({
       email: email,
-      nickname: nickname,
       password: password,
+      nickname: nickname,
       role: 0,
       gye_amount: 0,
       usdg_amount: 0,
