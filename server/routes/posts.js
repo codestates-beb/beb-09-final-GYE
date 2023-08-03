@@ -3,7 +3,7 @@ const router = express.Router();
 const {
     getallpostlist,
     createpost,
-    updatepost
+    updatepost,
 } = require("../controller/postcontroller");
 
 
@@ -15,5 +15,6 @@ router.post("/create", createpost);
 
 //게시글 수정
 router.post("/update", updatepost);
+
 
 module.exports = router;

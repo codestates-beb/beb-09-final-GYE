@@ -26,5 +26,7 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Room_Groups',
   });
+
+  
   return Room_Groups;
 };
