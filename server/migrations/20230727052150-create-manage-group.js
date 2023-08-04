@@ -15,14 +15,14 @@ module.exports = {
       user_id: {
         type: Sequelize.INTEGER
       },
+      nickname: {
+        type: Sequelize.STRING
+      },
       month: {
         type: Sequelize.DATE
       },
       yes_no_fee_payment: {
-        type: Sequelize.BOOLEAN
-      },
-      created_at: {
-        type: Sequelize.DATE
+        type: Sequelize.STRING, // "y" 또는 "n"으로 저장
       },
       createdAt: {
         allowNull: false,

@@ -10,14 +10,16 @@ const cors = require("cors");
 require("dotenv").config();
 
 const usersRouter = require("./routes/users");
-const creategroupRouter = require("./routes/creategroup");
+const creategroupRouter = require("./routes/groups");
 const postRouter = require("./routes/posts");
+const porfileRouter = require("./routes/profile");
 
 app.use(cors());
 app.use(express.json());
 app.use("/user", usersRouter);          //회원가입/로그인
 app.use("/group", creategroupRouter);   //계 그룹 만들기
 app.use("/posts", postRouter);          //게시판
+app.use("/profile", porfileRouter);      //마이페이지
 
 app.listen(port, () => {
   console.log(` 

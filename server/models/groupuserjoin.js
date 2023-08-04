@@ -14,9 +14,11 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   GroupUserJoin.init({
-    group_id: DataTypes.STRING,
-    email: DataTypes.STRING,
-    created_at: DataTypes.DATE
+    group_id: DataTypes.INTEGER,
+    user_id: DataTypes.INTEGER,
+    month: DataTypes.DATE,
+    yes_no_fee_payment:DataTypes.STRING,
+    updatedAt: DataTypes.DATE
   }, {
     sequelize,
     modelName: 'GroupUserJoin',
