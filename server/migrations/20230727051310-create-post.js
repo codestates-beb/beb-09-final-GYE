@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTashowble('Post', {
+    await queryInterface.createTable('Post', {
       id: {
         allowNull: false,
         autoIncrement: true,
