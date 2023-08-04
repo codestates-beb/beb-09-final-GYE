@@ -21,6 +21,12 @@ module.exports = {
       role: {
         type: Sequelize.INTEGER
       },
+      address: {
+        type: Sequelize.STRING
+      },
+      privatekey: {
+        type: Sequelize.STRING
+      },
       GYE_amount: {
         type: Sequelize.INTEGER
       },
