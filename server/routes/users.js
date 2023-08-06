@@ -3,7 +3,6 @@ const router = express.Router();
 const { Users } = require("../models");
 const { ethers } = require("ethers");
 require("dotenv").config();
-const { ethers } = require("ethers");
 
 
 //회원가입
