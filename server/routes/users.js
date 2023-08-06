@@ -1,9 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const { Users } = require("../models");
-
-require("dotenv").config();
 const { ethers } = require("ethers");
+require("dotenv").config();
 
 
 //회원가입
@@ -51,12 +50,13 @@ router.post('/signup', async (req, res) => {
   }
 });
 
+
 //로그인
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
   try {
     let user = await Users.findOne({ where: { email, password } });
-    console.log("=================유저 닉네임", user);
+    // console.log("=================유저 닉네임", user);
     if (!user) {
       res.status(401).json({ msg: "아이디 또는 비밀번호를 정확히 입력해주세요" });
     } else {
@@ -81,12 +81,5 @@ router.post("/login", async (req, res) => {
 })
 
 
-
-// //로그아웃
-// router.get('/logout', (req,res)=>{
-//     req.logout(); 
-//     req.session.destroy(); 
-//     res.redirect('/');
-// });
 
 module.exports = router;

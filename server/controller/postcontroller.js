@@ -1,6 +1,5 @@
-const express = require("express");
-const router = express.Router();
 const { Post, Users } = require("../models");
+
 
 module.exports = {
     //게시글 전체 조회
@@ -14,7 +13,7 @@ module.exports = {
                 display: result,
             });
         } catch (err) {
-            res.status(500).send(err);
+            res.status(500).json({ error: 'Failed to get all posts' });
         }
     },
 
@@ -110,7 +109,7 @@ module.exports = {
     createpost: async (req, res) => {
         const { email, title, content } = req.body;
         // console.log(req.body);
-
+            
         try {
             const user = await Users.findOne({ where: { email } });
 
@@ -126,11 +125,16 @@ module.exports = {
 
             return res.status(200).json({
                 msg: "게시글이 생성되었습니다.",
-                data: post,
+                data: {
+                    id: post.id,
+                    user_id: user.id,
+                    title: title,
+                    content: content,
+                }
             });
 
         } catch (err) {
-            res.status(500).send(err);
+            res.status(500).send({err:'Failed to write Post' });
         }
     },
 
@@ -138,7 +142,8 @@ module.exports = {
     updatepost: async (req, res) => {
 
         const { title, content, email } = req.body;
-        const { post_id } = req.params.id;
+        const { post_id } = req.params;
+        console.log(post_id);
         const date = new Date();
 
         try {

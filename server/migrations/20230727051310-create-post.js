@@ -18,14 +18,10 @@ module.exports = {
       content: {
         type: Sequelize.STRING
       },
-      // post_img: {
-      //   type: Sequelize.BLOB
-      // },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
-        
       },
       updatedAt: {
         allowNull: false,

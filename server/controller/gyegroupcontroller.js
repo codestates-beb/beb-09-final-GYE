@@ -1,26 +1,28 @@
-const { Room_Groups, Users } = require("../models");
+const { Room_Groups, Users, ManageGroups } = require("../models");
+const { Op } = require("sequelize");
 
 module.exports = {
 
     //create group page
     creategrouplist: async (req, res) => {
-        const { email, group_name, group_goal, fee, fee_day, max_ppl, group_img } = req.body;
-        // console.log(req.body);
+        const { email, group_name, group_goal, fee, fee_day, max_ppl, group_img, yes_no_fee_payment } = req.body;
+        const date = new Date();
+
         try {
             const user = await Users.findOne({ where: { email } });
 
-            const finde_group_name = await Room_Groups.findOne({
+            const find_group_name = await Room_Groups.findOne({
                 where: {
                     group_name: group_name,
                 },
 
             });
 
-            if (finde_group_name) {
+            if (find_group_name) {
                 res.status(400).send("계모임 이름이 중복입니다.");
             } else {
-                console.log(req.body);
-                Room_Groups.create({
+                // console.log(req.body);
+                const createdGroup = await Room_Groups.create({
                     email: email,
                     g_user_id: user.id,
                     group_name: group_name,
@@ -28,18 +30,23 @@ module.exports = {
                     fee: fee,
                     fee_day: fee_day,
                     max_ppl: max_ppl,
-                    group_img: group_img,
+
                 })
 
-                    .then((board) => {
-                        res.status(201).json({
-                            message: "계모임이 생성되었습니다.",
-                            board,
-                        });
-                    })
-                    .catch((err) => {
-                        res.status(500).json({ message: "계모임을 만드는대 실패하셨습니다.", err });
-                    })
+                const find_roomgroup_id = createdGroup.id;
+              
+                await ManageGroups.create({
+                    group_id: find_roomgroup_id,
+                    user_id: user.id,
+                    nickname: user.nickname,
+                    month: date,
+                    yes_no_fee_payment: yes_no_fee_payment,
+                });
+                
+                res.status(201).json({
+                    message: "계모임이 생성되었습니다.",
+                    group: createdGroup,
+                });
             }
         } catch (err) {
             res.status(500).json({ message: "계모임을 만드는대 실패하셨습니다.", err });
@@ -47,15 +54,19 @@ module.exports = {
     },
 
 
-    //계모임 조회
+    //계모임 전체 조회
     findgrouplist: async (req, res) => {
+        
         try {
-            const result = await Room_Groups.findAll({});
-
+            
+            const result = await Room_Groups.findAll({
+                order: [['createdAt', 'DESC']], // <-- Add the "order" option for sorting in descending order
+            });
+            
             const gyelist = result.map((el) => {
                 return el.dataValues;
             });
-
+            
             res.status(200).json({
                 msg: "ok",
                 display: gyelist,
@@ -64,34 +75,78 @@ module.exports = {
             console.log(err);
             res.status(500).send(err);
         }
-    }
+    },
 
     //계모임 그룹 참여하기
-    //  postgyejoin: async (req, res)=>{
-    //     const date = new Date();
-    //     const post_email = req.params.email;
-    //     const result = await GroupPage.findOne({
-    //         where:{
-    //             email: post_email,
-    //         }
-    //     })
+        postgyejoin: async (req, res) => {
+        const group_id = req.params.group_id;
+        console.log("그룹 유저 ID+++++++++++++",group_id );
+        const { email, yes_no_fee_payment } = req.body;
+        
+        const date = new Date();
 
-    //     if (findeEmail) {
-    //         res.status(400).send("이미 참여가 된 계모임입니다.");
-    //     } else {
-    //         GroupUserJoin.Create({
-    //             group_id: result.group_id,
-    //             email: email,
-    //             created_at: date,
-    //         })
-    //             .then((user) => {
-    //                 res.status(201).json({ success: true, message: "계모임에 참여가 완료되었습니다.", user });
-    //             })
-    //             .catch((err) => {
-    //                 res.status(500).json({ success: false, message: "계모임 참여에 실패하였습니다.", err });
-    //             })
+        try {
+            const user = await Users.findOne({ where: { email } });
+            
+            const find_manageGroup = await ManageGroups.findOne({
+                where: {
+                    user_id: user.id,
+                    group_id: group_id,
+                }
+            })
+            
+            console.log("유저 아이디 ID2222222222222+",user.id );
+            console.log("그룹 유저 ID+++++++++++++",group_id );
+            if (find_manageGroup) {
+                res.status(400).send("참여하거나 개설한 방입니다.");
+            } else {
+                const result = ManageGroups.create({
+                    group_id: group_id,
+                    user_id: user.id,
+                    nickname: user.nickname,
+                    month: date,
+                    yes_no_fee_payment: yes_no_fee_payment,
+                })
+
+                res.status(200).json({
+                    msg: "참여 신청이 완료되었습니다.",
+                    data: {
+                        reulst: result.id,
+                        group_id: group_id,
+                        user_id: user.id,
+                        nickname: user.nickname,
+                        month: date,
+                        yes_no_fee_payment: yes_no_fee_payment,
+                    }, 
+                });
+            }
+        } catch (err) {
+            console.log(err);
+            res.status(500).send({ err: "서버에러" });
+        }
+    },
+
+    // findgyedisplay: async (req, res) => {
+    //     const { group_id } = req.params;
+
+    //     try {
+    //         const records = await ManageGroups.findAll({
+    //           attributes: ["nickname", "mmonth", "yes_no_fee_payment","createdAt"],
+    //           where: {
+    //             group_id: group_id,
+    //             user_id: {
+    //               [Op.between]: [group_id, 10000],
+    //             },
+    //           },
+    //         });
+    //         console.log(records);
+    //         res.status(200).json({
+    //             msg: "ok",
+    //             data: records,
+    //         });
+         
+    //     } catch (err) {
+    //       console.log(err);
     //     }
-
     // }
-
 }
