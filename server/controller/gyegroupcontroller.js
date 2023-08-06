@@ -54,15 +54,19 @@ module.exports = {
     },
 
 
-    //계모임 조회
+    //계모임 전체 조회
     findgrouplist: async (req, res) => {
+        
         try {
-            const result = await Room_Groups.findAll({});
-
+            
+            const result = await Room_Groups.findAll({
+                order: [['createdAt', 'DESC']], // <-- Add the "order" option for sorting in descending order
+            });
+            
             const gyelist = result.map((el) => {
                 return el.dataValues;
             });
-
+            
             res.status(200).json({
                 msg: "ok",
                 display: gyelist,
@@ -74,8 +78,9 @@ module.exports = {
     },
 
     //계모임 그룹 참여하기
-    postgyejoin: async (req, res) => {
-        const { group_id } = req.params;
+        postgyejoin: async (req, res) => {
+        const group_id = req.params.group_id;
+        console.log("그룹 유저 ID+++++++++++++",group_id );
         const { email, yes_no_fee_payment } = req.body;
         
         const date = new Date();
@@ -89,8 +94,9 @@ module.exports = {
                     group_id: group_id,
                 }
             })
+            
+            console.log("유저 아이디 ID2222222222222+",user.id );
             console.log("그룹 유저 ID+++++++++++++",group_id );
-            console.log("유저 아이디 ID2222222222222+",user.user_id );
             if (find_manageGroup) {
                 res.status(400).send("참여하거나 개설한 방입니다.");
             } else {
@@ -105,13 +111,13 @@ module.exports = {
                 res.status(200).json({
                     msg: "참여 신청이 완료되었습니다.",
                     data: {
-                        id:result.id,
+                        reulst: result.id,
                         group_id: group_id,
                         user_id: user.id,
                         nickname: user.nickname,
                         month: date,
                         yes_no_fee_payment: yes_no_fee_payment,
-                    }
+                    }, 
                 });
             }
         } catch (err) {
@@ -120,27 +126,27 @@ module.exports = {
         }
     },
 
-    findgyedisplay: async (req, res) => {
-        const { group_id } = req.params;
+    // findgyedisplay: async (req, res) => {
+    //     const { group_id } = req.params;
 
-        try {
-            const records = await ManageGroups.findAll({
-              attributes: ["nickname", "mmonth", "yes_no_fee_payment","createdAt"],
-              where: {
-                group_id: group_id,
-                user_id: {
-                  [Op.between]: [group_id, 10000],
-                },
-              },
-            });
-            console.log(records);
-            res.status(200).json({
-                msg: "ok",
-                data: records,
-            });
+    //     try {
+    //         const records = await ManageGroups.findAll({
+    //           attributes: ["nickname", "mmonth", "yes_no_fee_payment","createdAt"],
+    //           where: {
+    //             group_id: group_id,
+    //             user_id: {
+    //               [Op.between]: [group_id, 10000],
+    //             },
+    //           },
+    //         });
+    //         console.log(records);
+    //         res.status(200).json({
+    //             msg: "ok",
+    //             data: records,
+    //         });
          
-        } catch (err) {
-          console.log(err);
-        }
-    }
+    //     } catch (err) {
+    //       console.log(err);
+    //     }
+    // }
 }

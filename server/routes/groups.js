@@ -13,7 +13,7 @@ router.get("/list", findgrouplist);
 router.post("/create", creategrouplist);
 
 //계 참여하기
-router.post("/meet:group_id", postgyejoin);
+router.post("/:group_id", postgyejoin);
 
 
 module.exports = router;

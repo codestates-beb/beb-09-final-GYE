@@ -37,7 +37,12 @@ module.exports = {
 
             return res.status(200).json({
                 msg: "게시글이 생성되었습니다.",
-                data: post,
+                data: {
+                    id: post.id,
+                    user_id: user.id,
+                    title: title,
+                    content: content,
+                }
             });
 
         } catch (err) {
@@ -49,7 +54,8 @@ module.exports = {
     updatepost: async (req, res) => {
 
         const { title, content, email } = req.body;
-        const { post_id } = req.params.id;
+        const { post_id } = req.params;
+        console.log(post_id);
         const date = new Date();
 
         try {

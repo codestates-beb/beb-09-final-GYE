@@ -4,7 +4,6 @@ const { Users } = require("../models");
 const { ethers } = require("ethers");
 require("dotenv").config();
 
-
 //회원가입
 router.post('/signup', async (req, res) => {
 
@@ -12,15 +11,16 @@ router.post('/signup', async (req, res) => {
   console.log(req.body);
   const date = new Date();
 
+  // 새로운 지갑을 생성합니다.
   const wallet = ethers.Wallet.createRandom();
 
+  // 생성된 지갑과 로컬 Ethereum provider를 연결합니다.
   const userWallet = wallet.connect(ethers.provider);
 
+  // 사용자의 Ethereum 주소와 개인 키를 가져옵니다.
   const userAddress = userWallet.address;
   const privateKey = userWallet.privateKey; //개인 키는 암호화해서 저장하면 좋음?? -> 찾아보자.
-   
 
-  console.log("지갑주소 확인 -----------",wallet);
 
   const findeEmail = await Users.findOne({
     where: {
@@ -34,6 +34,8 @@ router.post('/signup', async (req, res) => {
       email: email,
       password: password,
       nickname: nickname,
+      address: userAddress,
+      privatekey: privateKey,
       role: 0,
       gye_amount: 0,
       usdg_amount: 0,
