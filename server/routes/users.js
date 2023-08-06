@@ -3,6 +3,8 @@ const router = express.Router();
 const { Users } = require("../models");
 const { ethers } = require("ethers");
 require("dotenv").config();
+const { ethers } = require("ethers");
+
 
 //회원가입
 router.post('/signup', async (req, res) => {
@@ -11,15 +13,12 @@ router.post('/signup', async (req, res) => {
   console.log(req.body);
   const date = new Date();
 
-  // 새로운 지갑을 생성합니다.
+    // 새로운 지갑을 생성합니다. 주소는 얻을 수 있는데 프라이빗키는 
   const wallet = ethers.Wallet.createRandom();
 
-  // 생성된 지갑과 로컬 Ethereum provider를 연결합니다.
-  const userWallet = wallet.connect(ethers.provider);
-
   // 사용자의 Ethereum 주소와 개인 키를 가져옵니다.
-  const userAddress = userWallet.address;
-  const privateKey = userWallet.privateKey; //개인 키는 암호화해서 저장하면 좋음?? -> 찾아보자.
+  const userAddress = wallet.address;
+  const privateKey = wallet.privateKey; //개인 키는 암호화해서 저장하면 좋음?? -> 찾아보자.
 
 
   const findeEmail = await Users.findOne({
@@ -68,6 +67,7 @@ router.post("/login", async (req, res) => {
           id: user.id,
           email: user.email,
           nickname: user.nickname,
+          address: userAddress,
           gye_amount: user.gye_amount,
           usdg_amount: user.usdg_amount,
         },

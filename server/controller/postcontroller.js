@@ -17,6 +17,94 @@ module.exports = {
         }
     },
 
+    registerPostWithTokenReward: async (req, res) => {
+        const USDG_REWARD = BigInt(200e18);
+    
+        try {
+          if (!req.headers.authorization) {
+            return res.status(400).send("no authorization");
+          } else {
+            const token = req.headers.authorization.split(" ")[1];
+            const data = jwt.verify(token, process.env.ACCESS_SECRET);
+            const user_id = data.userId;
+            console.log(user_id);
+            const { title, content } = req.body;
+    
+            // create new post
+            const post = await Post.create({
+                user_id: user_id,
+              title: title,
+              content: content,
+            });
+            //   console.log(post.dataValues);
+    
+            // transfer token to users
+            const serverAccount = await ServerAccount.findOne();
+            const recipientAccount = await Users.findOne({
+              where: {
+                id: user_id,
+              },
+            });
+            const provider = new ethers.providers.JsonRpcProvider(
+              process.env.LOCAL_ENDPOINT
+            );
+            const serverWallet = new ethers.Wallet(
+              // serverAccount.privatekey,
+              process.env.SERVER_SECRET,
+              provider
+            );
+    
+            const tokenContractAddress = process.env.ERC20_CONTRACT;
+            const tokenContractABI =
+              require("../../contracts/src/USDG.sol/USDG.json").abi;
+            const tokenContract = new ethers.Contract(
+              tokenContractAddress,
+              tokenContractABI,
+              serverWallet
+            );
+    
+            // 토큰을 다른 주소로 전송합니다.
+            const transferTx = await tokenContract.transfer(
+              recipientAccount.address,
+              USDG_REWARD
+            );
+            await transferTx.wait();
+    
+            const tokenBalanceContract = await tokenContract.balanceOf(
+              // serverAccount.address
+              process.env.SERVER_ADDRESS
+            );
+            const tokenBalanceContractFormatted =
+              ethers.utils.formatEther(tokenBalanceContract);
+            const tokenBalanceRecipient = await tokenContract.balanceOf(
+              recipientAccount.address
+            );
+            const tokenBalanceRecipientFormatted = ethers.utils.formatEther(
+              tokenBalanceRecipient
+            );
+    
+            await serverAccount.update({
+              token_amount: String(tokenBalanceContractFormatted),
+            });
+            await recipientAccount.update({
+              token_amount: String(tokenBalanceRecipientFormatted),
+              where: {
+                id: user_id,
+              },
+            });
+    
+            return res.status(200).json({
+              message: "Posting & USDG reward complete",
+              postId: post.id,
+              reward: recipientAccount.token_amount,
+            });
+          }
+        } catch (e) {
+          console.log(e);
+          return res.status(500).send("internal server error");
+        }
+      },
+
     //게시글 생성
     createpost: async (req, res) => {
         const { email, title, content } = req.body;
