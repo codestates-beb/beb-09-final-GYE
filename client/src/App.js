@@ -8,6 +8,7 @@ import Signup from './pages/Signup';
 import JoinGroup from './pages/JoinGroup';
 import GroupDetail from './pages/GroupDetail';
 import CreateGroup from './pages/CreateGroup';
+import ManageGroup from './pages/ManageGroup';
 // import Community from './pages/Community';
 import Swap from './pages/Swap';
 
@@ -28,6 +29,7 @@ function Layout() {
         <Route path="/group/join" element={<JoinGroup />} />
         <Route path="/group/:id" element={<GroupDetail />} />
         <Route path="/group/create" element={<CreateGroup />} />
+        <Route path="/group/manage" element={<ManageGroup />} />
         {/* <Route path="/community" element={<Community />} /> */}
         <Route path="/swap" element={<Swap />} />
       </Routes>
