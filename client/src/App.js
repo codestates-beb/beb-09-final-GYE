@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import store from './redux/store';
 
 import Main from './pages/Main';
 import Signup from './pages/Signup';
@@ -24,7 +26,7 @@ function Layout() {
         <Route path="/" element={<Main />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/group/join" element={<JoinGroup />} />
-        <Route path="/group/detail" element={<GroupDetail />} />
+        <Route path="/group/:id" element={<GroupDetail />} />
         <Route path="/group/create" element={<CreateGroup />} />
         {/* <Route path="/community" element={<Community />} /> */}
         <Route path="/swap" element={<Swap />} />
@@ -35,9 +37,11 @@ function Layout() {
 
 function App() {
   return (
-    <BrowserRouter>
-      <Layout />
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Layout />
+      </BrowserRouter>
+    </Provider>
   );
 }
 

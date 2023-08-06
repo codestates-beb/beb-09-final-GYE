@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';
 
-const GroupDetail = () => {
+const CreateGroup = () => {
   // 가상의 모임 정보 데이터
   const [groupImage, setGroupImage] = useState('null');
   const [groupName, setGroupName] = useState('');
@@ -40,7 +40,7 @@ const GroupDetail = () => {
       <Nav />
       <div className="flex flex-col">
       <h2 className="w-3/5 text-4xl font-bold mx-auto mt-12 mb-2 text-gray-600">Create Group</h2>
-      <p className="w-3/5 mx-auto mb-8 text-gray-500">Change GYE tokens to USDG tokens.</p>
+      <p className="w-3/5 mx-auto mb-8 text-gray-500">Create Your Own Group Using GYE tokens.</p>
         <form onSubmit={handleSubmit} className="container w-3/5 mx-auto mb-24">
           <div className="flex items-center w-full">
             <label for="group_image" className='w-1/3 h-80 mr-8 rounded-md shadow-md border-2 cursor-pointer overflow-hidden'>
@@ -86,4 +86,4 @@ const GroupDetail = () => {
   );
 };
 
-export default GroupDetail;
+export default CreateGroup;
