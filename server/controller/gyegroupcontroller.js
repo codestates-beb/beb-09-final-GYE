@@ -80,8 +80,9 @@ module.exports = {
     //계모임 그룹 참여하기
         postgyejoin: async (req, res) => {
         const group_id = req.params.group_id;
+       
         console.log("그룹 유저 ID+++++++++++++",group_id );
-        const { email, yes_no_fee_payment } = req.body;
+        const { email } = req.body;
         
         const date = new Date();
 
@@ -96,7 +97,7 @@ module.exports = {
             })
             
             console.log("유저 아이디 ID2222222222222+",user.id );
-            console.log("그룹 유저 ID+++++++++++++",group_id );
+       
             if (find_manageGroup) {
                 res.status(400).send("참여하거나 개설한 방입니다.");
             } else {
@@ -105,7 +106,7 @@ module.exports = {
                     user_id: user.id,
                     nickname: user.nickname,
                     month: date,
-                    yes_no_fee_payment: yes_no_fee_payment,
+                    yes_no_fee_payment: "N",
                 })
 
                 res.status(200).json({
