@@ -37,9 +37,23 @@ const ManageGroup = () => {
   return (
     <div>
       <Nav />
-      <div className="flex flex-col">
-        <h2 className="w-3/5 text-4xl font-bold mx-auto mt-12 mb-10 text-gray-600">Manage Group</h2>
-        <div className="container w-3/5 mx-auto">
+      <div className="flex flex-col w-3/5 mx-auto">
+        <div className="flex justify-between w-full">
+          <h2 className="w-1/2 text-3xl font-bold border-b-2 pb-2 mt-12 mb-8 text-gray-600">계모임 이름</h2>
+          <div className="w-1/2 text-end mt-12 mb-8 font-bold px-4 py-2 text-xl text-gray-600">
+            현재 인원수: 12명
+          </div>
+        </div>
+        <div className='ml-2 mb-4 text-gray-600'>
+          계모임 총 목표액: 
+        </div>
+        <div className='ml-2 mb-4 text-gray-600'>
+          현재 누적 액수: 
+        </div>
+        <div className='ml-2 mb-10 text-gray-600'>
+          누적 개월수: 
+        </div>
+        <div className="container w-full mx-auto">
           <table className="w-full border-collapse text-center">
             <thead>
               <tr className="bg-gray-200">
