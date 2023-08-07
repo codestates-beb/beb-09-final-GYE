@@ -4,12 +4,13 @@ import { Provider } from "react-redux";
 import store from "./redux/store";
 
 import Main from "./pages/Main";
-import Community from "./pages/Community";
 import Signup from "./pages/Signup";
+import MyPage from "./pages/MyPage";
 import JoinGroup from "./pages/JoinGroup";
 import GroupDetail from "./pages/GroupDetail";
 import CreateGroup from "./pages/CreateGroup";
 import ManageGroup from "./pages/ManageGroup";
+import Community from "./pages/Community";
 import Swap from "./pages/Swap";
 
 function Layout() {
@@ -26,11 +27,12 @@ function Layout() {
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/community" element={<Community />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route path="/user/signup" element={<Signup />} />
+        <Route path="/user/mypage" element={<MyPage />} />
         <Route path="/group/join" element={<JoinGroup />} />
         <Route path="/group/:id" element={<GroupDetail />} />
         <Route path="/group/create" element={<CreateGroup />} />
-        <Route path="/group/manage" element={<ManageGroup />} />
+        <Route path="/group/manage/:id" element={<ManageGroup />} />
         <Route path="/swap" element={<Swap />} />
       </Routes>
     </div>
