@@ -66,6 +66,7 @@ router.post("/login", async (req, res) => {
           id: user.id,
           email: user.email,
           nickname: user.nickname,
+          address: user.Address,
           gye_amount: user.gye_amount,
           usdg_amount: user.usdg_amount,
         },

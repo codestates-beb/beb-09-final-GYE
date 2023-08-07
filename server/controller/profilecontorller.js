@@ -38,13 +38,10 @@ module.exports = {
                     gye_amount: user.gye_amount,
                     usdg_amount: user.usdg_amount,
                     createdAt: user.createdAt,
-
                     groups: {
                         id: findgroup.id,
                         group_name: findgroup.group_name,
                     },
-
-
                 }
 
                 res.status(200).json({
@@ -57,6 +54,45 @@ module.exports = {
             res.status(400).json({ error: 'The request message is invalid.' });
         }
 
+    },
+
+    // 회비 납부 하기
+
+    gye_payy: async(req, res) =>{
+        const { email } = req.params;
+        
+        try{
+            const user = await Users.findOne({ where: { email } });
+
+            
+            if (user) {
+                const findgroup = await Room_Groups.findOne({ where: { g_user_id: user.id } });
+
+                const userPost = await Post.findAll({
+                    where: {
+                        user_id: user.id,
+                    },
+                });
+                //   console.log(userPost );
+                const postData = userPost.map((post) => {
+                    return {
+                        postId: post.id,
+                        title: post.title,
+                        content: post.content,
+                        createdAt: post.createdAt,
+                    };
+                });
+
+                res.status(200).json({
+                    msg: 'Find Usersdata',
+                    data: responseData,
+                    postsdata: postData
+                })
+            }
+
+        } catch(err) {
+            res.status(400).json({ error: 'The request message is invalid.' });
+        }
     },
 
     //마이페이지 계그룹 참여한 사람 보기
@@ -74,15 +110,13 @@ module.exports = {
                 },
             });
 
-            
-            console.log("데이터 체크====",records);
             res.status(200).json({
                 msg: "ok",
                 data: records,
             });
 
         } catch (err) {
-            console.log(err);
+            res.status(400).json({ error: 'The request message is invalid.' });
         }
-    }
+    }   
 }

@@ -96,7 +96,7 @@ module.exports = {
                 }
             })
             
-            console.log("유저 아이디 ID2222222222222+",user.id );
+            // console.log("유저 아이디 ID2222222222222+",user.id );
        
             if (find_manageGroup) {
                 res.status(400).send("참여하거나 개설한 방입니다.");
