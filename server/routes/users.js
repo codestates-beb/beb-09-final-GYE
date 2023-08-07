@@ -55,18 +55,18 @@ router.post('/signup', async (req, res) => {
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
   try {
-    let user = await Users.findOne({ where: { email, password } });
+    const user = await Users.findOne({ where: { email, password } });
     // console.log("=================유저 닉네임", user);
     if (!user) {
       res.status(401).json({ msg: "아이디 또는 비밀번호를 정확히 입력해주세요" });
     } else {
       res.status(200).json({
-        msg: "로그인에 성공했습니다.",
+        isLoginMessage: "로그인에 성공하였습니다.",
         data: {
           id: user.id,
           email: user.email,
           nickname: user.nickname,
-          address: userAddress,
+          address: user.Address,
           gye_amount: user.gye_amount,
           usdg_amount: user.usdg_amount,
         },
