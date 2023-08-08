@@ -5,7 +5,7 @@ module.exports = {
 
     //create group page
     creategrouplist: async (req, res) => {
-        const { email, group_name, group_goal, fee, fee_day, max_ppl, group_img, yes_no_fee_payment } = req.body;
+        const { email, group_name, group_goal, fee, fee_day, max_ppl, group_img } = req.body;
         const date = new Date();
 
         try {
@@ -40,7 +40,7 @@ module.exports = {
                     user_id: user.id,
                     nickname: user.nickname,
                     month: date,
-                    yes_no_fee_payment: yes_no_fee_payment,
+                    yes_no_fee_payment: "N",
                 });
                 
                 res.status(201).json({
@@ -117,7 +117,7 @@ module.exports = {
                         user_id: user.id,
                         nickname: user.nickname,
                         month: date,
-                        yes_no_fee_payment: yes_no_fee_payment,
+                        yes_no_fee_payment: "N",
                     }, 
                 });
             }
@@ -126,28 +126,4 @@ module.exports = {
             res.status(500).send({ err: "서버에러" });
         }
     },
-
-    // findgyedisplay: async (req, res) => {
-    //     const { group_id } = req.params;
-
-    //     try {
-    //         const records = await ManageGroups.findAll({
-    //           attributes: ["nickname", "mmonth", "yes_no_fee_payment","createdAt"],
-    //           where: {
-    //             group_id: group_id,
-    //             user_id: {
-    //               [Op.between]: [group_id, 10000],
-    //             },
-    //           },
-    //         });
-    //         console.log(records);
-    //         res.status(200).json({
-    //             msg: "ok",
-    //             data: records,
-    //         });
-         
-    //     } catch (err) {
-    //       console.log(err);
-    //     }
-    // }
 }
