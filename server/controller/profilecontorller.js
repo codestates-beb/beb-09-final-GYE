@@ -74,7 +74,7 @@ module.exports = {
                     totalpay += fee_pay;
                     
                     const result = await ManageGroups.update({
-                        fee_pay: +totalpay,
+                        fee_pay: totalpay,
                         yes_no_fee_payment: "Y",
                         updateAt: date,
                     },
