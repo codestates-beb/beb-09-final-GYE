@@ -1,5 +1,5 @@
 const { Post, Users } = require("../models");
-
+const { ethers } = require("ethers");
 
 module.exports = {
     //게시글 전체 조회

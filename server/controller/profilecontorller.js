@@ -57,40 +57,61 @@ module.exports = {
     },
 
     // 회비 납부 하기
+    gye_payy: async (req, res) => {
+        const { email, group_id } = req.params;
+        const { fee_pay } = req.body;
+        const intgroup_id = parseInt(group_id);
+        const date = new Date();
 
-    gye_payy: async(req, res) =>{
-        const { email } = req.params;
-        
-        try{
+        try {
             const user = await Users.findOne({ where: { email } });
-
-            
             if (user) {
-                const findgroup = await Room_Groups.findOne({ where: { g_user_id: user.id } });
-
-                const userPost = await Post.findAll({
-                    where: {
-                        user_id: user.id,
+                const oneMonthLater = new Date();
+                oneMonthLater.setMonth(oneMonthLater.getMonth() + 1);
+                const findgroup = await ManageGroups.findOne({ where: { group_id: intgroup_id, user_id: user.id } });
+                if (findgroup) {
+                    let totalpay = findgroup.fee_pay;
+                    totalpay += fee_pay;
+                    
+                    const result = await ManageGroups.update({
+                        fee_pay: +totalpay,
+                        yes_no_fee_payment: "Y",
+                        updateAt: date,
                     },
-                });
-                //   console.log(userPost );
-                const postData = userPost.map((post) => {
-                    return {
-                        postId: post.id,
-                        title: post.title,
-                        content: post.content,
-                        createdAt: post.createdAt,
-                    };
-                });
+                        {
+                            where: {
+                                group_id: intgroup_id,
+                                user_id: user.id,
+                            }
+                        }
+                    );
 
-                res.status(200).json({
-                    msg: 'Find Usersdata',
-                    data: responseData,
-                    postsdata: postData
-                })
+                    const dataToUpdate = await ManageGroups.findAll({
+                        where: {
+                            yes_no_fee_payment: 'N',
+                            updatedAt: {
+                                [Op.lte]: oneMonthLater, // 한 달 뒤보다 이전 시간
+                            },
+                        },
+                    });
+                    dataToUpdate.forEach(async (data) => {
+                        data.yes_no_fee_payment = 'N';
+                        await data.save();
+                    });
+
+                    res.status(200).json({
+                        msg: 'Find Usersdata',
+                        data: result,
+                        monthdata: dataToUpdate,
+                    })
+                }
+
+            } else {
+                res.status(400).json({ error: 'The request message is invalid.' });
             }
 
-        } catch(err) {
+
+        } catch (err) {
             res.status(400).json({ error: 'The request message is invalid.' });
         }
     },
@@ -118,5 +139,5 @@ module.exports = {
         } catch (err) {
             res.status(400).json({ error: 'The request message is invalid.' });
         }
-    }   
+    }
 }
